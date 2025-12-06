@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 // import assets from "../assets/assets";
 import { AuthContext } from "../../context/AuthContext";
+import assets from "../assets/assets";
 
 const LoginPage = () => {
   const [isSignup, setIsSignup] = useState(true);
@@ -37,13 +38,26 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center">
+    <div className="min-h-screen bg-cover bg-center flex justify-center items-center gap-8 sm:justify-evenly max-sm:flex-col backdrop-blur-2xl">
+      <img
+        src={assets.message_Outline}
+        alt=""
+        className="w-[min(30vw,250px)]"
+      />
       <form
         onSubmit={onSubmitHandler}
-        className="bg-white/10 p-6 rounded-md w-[350px] text-white"
+        className="border-2 bg-white/8 border-gray-500 p-6 rounded-lg text-white flex flex-col gap-6 shadow-lg"
       >
-        <h2 className="text-2xl font-medium mb-4">
+        <h2 className="text-2xl font-medium flex justify-between items-center">
           {isSignup ? "Sign up" : "Login"}
+          {isSignup && step === 2 && (
+            <img
+            onClick={() => setStep(1)}
+              src={assets.arrow_icon}
+              alt=""
+              className="w-5 cursor-pointer"
+            />
+          )}
         </h2>
 
         {/* SIGNUP STEP 1 */}
@@ -55,7 +69,7 @@ const LoginPage = () => {
               type="text"
               placeholder="Full Name"
               required
-              className="p-2 border rounded w-full mb-3"
+              className="p-2 border border-gray-500 rounded-md focus:outline-none"
             />
             <input
               value={email}
@@ -63,7 +77,7 @@ const LoginPage = () => {
               type="email"
               placeholder="Email"
               required
-              className="p-2 border rounded w-full mb-3"
+              className="p-2 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
             <input
               value={password}
@@ -71,7 +85,7 @@ const LoginPage = () => {
               type="password"
               placeholder="Password"
               required
-              className="p-2 border rounded w-full mb-3"
+              className="p-2 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </>
         )}
@@ -84,7 +98,7 @@ const LoginPage = () => {
               onChange={(e) => setBio(e.target.value)}
               placeholder="Short Bio"
               rows={4}
-              className="p-2 border rounded w-full mb-3"
+              className="p-2 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </>
         )}
@@ -98,7 +112,7 @@ const LoginPage = () => {
               type="email"
               placeholder="Email"
               required
-              className="p-2 border rounded w-full mb-3"
+              className="p-2 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
             <input
               value={password}
@@ -106,26 +120,29 @@ const LoginPage = () => {
               type="password"
               placeholder="Password"
               required
-              className="p-2 border rounded w-full mb-3"
+              className="p-2 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </>
         )}
 
         <button
           type="submit"
-          className="bg-purple-600 w-full py-2 rounded"
+          className="py-3 bg-gradient-to-r from-purple-400 to-violet-600 text-white rounded-md cursor-pointer"
         >
-          {isSignup
-            ? step === 1
-              ? "Next"
-              : "Create Account"
-            : "Login Now"}
+          {isSignup ? (step === 1 ? "Next" : "Create Account") : "Login Now"}
         </button>
+        <div className="flex items-center gap-2 text-sm text-gray-500">
+          <input type="checkbox" />
+          <p>Agree to the terms of use & privacy policy.</p>
+        </div>
 
-        <p className="mt-3 text-sm">
-          {isSignup ? "Already have an account?" : "Don't have an account?"}{" "}
+        <div className="flex items-center gap-2">
+          <span>
+            {isSignup ? "Already have an account?" : "Don't have an account?"}
+          </span>
+
           <span
-            className="text-violet-500 cursor-pointer"
+            className="font-medium text-violet-500 cursor-pointer"
             onClick={() => {
               setIsSignup(!isSignup);
               resetForm();
@@ -133,7 +150,7 @@ const LoginPage = () => {
           >
             {isSignup ? "Login" : "Sign up"}
           </span>
-        </p>
+        </div>
       </form>
     </div>
   );
